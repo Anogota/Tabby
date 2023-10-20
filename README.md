@@ -22,3 +22,26 @@ But what i did is check the port 80, did small manual recon. I found this in sou
 
 ![image](https://github.com/Anogota/Tabby/assets/143951834/b8443ca3-ed3c-4670-af3d-59272b0e7d5e)
 
+Now when we know there is LFI, we need to get some intresting file, maybe tomcat have some passowrd for user. In pass this user looks intresting ```ash:x:1000:1000:clive:/home/ash:/bin/bash``` Now let's go little bit search about it. First what i recommend in this situation is doc. And i found in doc this ```The users file (by default, conf/tomcat-users.xml must be an XML document, with a root element <tomcat-users>. ```. But i have no idea and i decide to go 10.10.10.194:8080, there was a version of tomcat.
+This is a ```Tomcat veterans might be pleased to learn that this system instance of Tomcat is installed with CATALINA_HOME in /usr/share/tomcat9 and CATALINA_BASE in /var/lib/tomcat9, following the rules from /usr/share/doc/tomcat9-common/RUNNING.txt.gz.``` tomcat9, now when we have version of tomcat let's do something with this LFI, but this below conf/tomcat-users.xml don't work. But i also find another path to get a tomcat-user
+```
+/etc/tomcat6/
+├── Catalina
+│   └── localhost
+│       ├── ROOT.xml
+│       └── solr.xml -> ../../../solr/solr-tomcat.xml
+├── catalina.properties
+├── context.xml
+├── logging.properties
+├── policy.d
+│   ├── 01system.policy
+│   ├── 02debian.policy
+│   ├── 03catalina.policy
+│   ├── 04webapps.policy
+│   ├── 05solr.policy -> /etc/solr/tomcat.policy
+│   └── 50local.policy
+├── server.xml
+├── tomcat-users.xml
+└── web.xml
+```
+But this also don't work. But after few atempt i create this ```../../../../usr/share/tomcat9/etc/tomcat-users.xml ``` and by this i got ```  <user username="tomcat" password="$3cureP4s5w0rd123!" roles="admin-gui,manager-script"/>``` Okay we have another step in lab.
