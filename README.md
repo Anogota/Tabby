@@ -18,3 +18,7 @@ PORT     STATE SERVICE VERSION
 Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 ``` 
 We can see on port 8080 tomcat, intuition told me there will be vuln :P
+But what i did is check the port 80, did small manual recon. I found this in source code, we need add this into /etc/hosts ```<li><a href="http://megahosting.htb/news.php?file=statement">News</a></li>``` Thne let's go check what on the domain. First thought what's come to mind is LFI, i think the ?file can be vulnerability. Turn on the burp and intercept traffic. And that how i say, there was a LFI, i got /etc/passwd
+
+![image](https://github.com/Anogota/Tabby/assets/143951834/b8443ca3-ed3c-4670-af3d-59272b0e7d5e)
+
